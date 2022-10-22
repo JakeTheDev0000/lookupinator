@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 int displayUsrInfo(int nameID);
 
@@ -20,9 +21,18 @@ int main() {
 	int needCheckName = 0;
 
 	while(1) {
-		printf("\n\nEnter a name >> ");
+		printf("\n\nEnter a name/command >> ");
 		scanf("%s", &whatNameLookup);
 		needCheckName = 0;
+
+
+		// converts "whatNameLookup" tolower so it can reduce the amount of errors
+		int j = 0;
+		while (whatNameLookup[j]) {
+			whatNameLookup[j] = tolower(whatNameLookup[j]);
+			j++;
+		}
+
 
 		if (strcmp(whatNameLookup, "exit") == 0) {
 			return 0;
@@ -36,7 +46,22 @@ int main() {
 			
 		}
 		
-		// I know its a mess down here :/ 
+		/*
+		// I know its a mess down here :/
+		if (needCheckName == 0){
+			int I_NAME_CHECKER = 0;
+			for (I_NAME_CHECKER = 0; I_NAME_CHECKER < NAME_CAPT; I_NAME_CHECKER++) {
+				char ID_CHECK_NUMBER[4] = "ID%d", I_NAME_CHECKER;
+				if (strcmp(whatNameLookup, ID_CHECK_NUMBER) == 0) {
+					printf("yay");
+				}
+				else {
+					printf("%s is not %s\n", whatNameLookup, names[I_NAME_CHECKER]);
+				} // else above
+			} // for loop
+		} // if needCheckName
+		*/
+
 		if (needCheckName == 0){
 			int I_NAME_CHECKER = 0;
 			for (I_NAME_CHECKER = 0; I_NAME_CHECKER < NAME_CAPT; I_NAME_CHECKER++) {
@@ -59,3 +84,5 @@ int main() {
 int displayUsrInfo(int nameID) {
 	printf("%d\n", nameID);
 }
+
+
