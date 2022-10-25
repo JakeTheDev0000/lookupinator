@@ -7,6 +7,14 @@ int displayUsrInfo(char *name);
 void testEnv();
 char *IDtoName(char *ID);
 
+/* in_stable codes
+	 0: DEV
+	 1: stable
+	 2: beta
+	>3: unknown 
+*/
+const int in_stable = 2;
+const char *VERSION = "0.8.1";
 const char *names[] = {
         "jake",
         "richie",
@@ -30,6 +38,7 @@ int main() {
 
 
 
+	// should be reversed
 	int needCheckName = 0;
 
 	while(1) {
@@ -55,8 +64,29 @@ int main() {
 			for(I_LIST = 0; I_LIST < NAME_CAPT; I_LIST++) {
 				printf("%d - %s\n",I_LIST, names[I_LIST]);
 			}
+			needCheckName = 1;			
+		}
+		else if (strcmp(whatNameLookup, "clear") == 0) {
+			printf("clearing...\n");
+			system("clear");
 			needCheckName = 1;
-			
+		}
+		else if (strcmp(whatNameLookup, "_ver") == 0) {
+			printf("Lookupinator %s\n", VERSION);
+			if (in_stable == 1) {
+				printf("In stable build");
+			}
+			else if (in_stable == 0) {
+				printf("In Dev build");
+			}
+			else if (in_stable == 2) {
+				printf("In beta build");
+			}
+			else {
+				printf("In unknown build");
+			}
+
+			needCheckName = 1;
 		}
 		
 
