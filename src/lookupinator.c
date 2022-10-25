@@ -14,7 +14,7 @@ char *IDtoName(char *ID);
 	>3: unknown 
 */
 const int in_stable = 2;
-const char *VERSION = "0.8.1";
+const char *VERSION = "0.8.2";
 const char *names[] = {
         "jake",
         "richie",
@@ -26,7 +26,8 @@ const char *names[] = {
         "joey",
         "jason",
         "william",
-        "_FILLER_"
+        "_FILLER_",
+		"larry capt"
 };
 int NAME_CAPT = sizeof names / sizeof names[0];
 
@@ -120,20 +121,6 @@ int main() {
 			if (USE_ID == 1) {
 				printf("Yes ID\nchecking Identifiers\n");
                 printf("%s", IDtoName(ID_TOKEN));
-//                displayUsrInfo(IDtoName(ID_TOKEN));
-
-
-//				int I_ID_CHECKER = 0;
-//				for (I_ID_CHECKER = 0; I_ID_CHECKER < NAME_CAPT; I_ID_CHECKER++) {
-//					if (strcmp(ID_TOKEN, names[I_ID_CHECKER]) == 0) {
-//						printf("found %s\n", names[I_ID_CHECKER]);
-//						displayUsrInfo(I_ID_CHECKER);
-//						break;
-//					}
-//					else {
-//						printf("%s is not %s\n", ID_TOKEN, names[I_ID_CHECKER]);
-//					} // else above
-//				} // for loop
 			}
 			else {
 				printf("No ID\nchecking names\n");
@@ -162,41 +149,17 @@ int displayUsrInfo(char *name) {
 	printf("%s\n", name);
 }
 
-// yes, yes, i know, its the worst code to worldkind, that's why im called messycode
+// char str[ENOUGH];
+// sprintf(str, "%d", 42);
 char *IDtoName(char *ID) {
-    if (strcmp(ID, "0") == 0) {
-        return (unsigned char *)names[0];
-    }
-    if (strcmp(ID, "1") == 0) {
-        return (unsigned char *)names[1];
-    }
-    if (strcmp(ID, "2") == 0) {
-        return (unsigned char *)names[2];
-    }
-    if (strcmp(ID, "3") == 0) {
-        return (unsigned char *)names[3];
-    }
-    if (strcmp(ID, "4") == 0) {
-        return (unsigned char *)names[4];
-    }
-    if (strcmp(ID, "5") == 0) {
-        return (unsigned char *)names[5];
-    }
-    if (strcmp(ID, "6") == 0) {
-        return (unsigned char *)names[6];
-    }
-    if (strcmp(ID, "7") == 0) {
-        return (unsigned char *)names[7];
-    }
-    if (strcmp(ID, "8") == 0) {
-        return (unsigned char *)names[8];
-    }
-    if (strcmp(ID, "9") == 0) {
-        return (unsigned char *)names[9];
-    }
-    if (strcmp(ID, "10") == 0) {
-        return (unsigned char *)names[10];
-    }
+	int FORI = 0;
+	char TEMP_NUM_STR[10];
+	for (FORI = 0; FORI < NAME_CAPT; FORI++) {
+		sprintf(TEMP_NUM_STR, "%d", FORI);
+		if (strcmp(ID, TEMP_NUM_STR) == 0) {
+        	return (unsigned char *)names[FORI];
+    	}
+	}
 }
 
 // testEnv() is a test function to test C code, it will exit when its done exit
