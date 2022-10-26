@@ -3,9 +3,13 @@
 #include <string.h>
 #include <ctype.h>
 
+#include <time.h>
+
 int displayUsrInfo(char *name);
 void testEnv();
 char *IDtoName(char *ID);
+void delay(int number_of_seconds);
+char *homeDir();
 
 /* in_stable codes
 	 0: DEV
@@ -13,8 +17,8 @@ char *IDtoName(char *ID);
 	 2: beta
 	>3: unknown 
 */
-const int in_stable = 2;
-const char *VERSION = "0.8.2";
+const int in_stable = 0;
+const char *VERSION = "0.8.3";
 const char *names[] = {
         "jake",
         "richie",
@@ -33,7 +37,7 @@ int NAME_CAPT = sizeof names / sizeof names[0];
 
 int main() {
 
-	//testEnv();
+//	testEnv();
 
 	char whatNameLookup[30];
 
@@ -43,7 +47,7 @@ int main() {
 	int needCheckName = 0;
 
 	while(1) {
-		printf("\n\nEnter a name/command >> ");
+		printf("\nEnter a name/command >> ");
 		scanf("%s", whatNameLookup);
 		needCheckName = 0;
 
@@ -120,7 +124,7 @@ int main() {
 
 			if (USE_ID == 1) {
 				printf("Yes ID\nchecking Identifiers\n");
-                printf("%s", IDtoName(ID_TOKEN));
+                displayUsrInfo(IDtoName(ID_TOKEN));
 			}
 			else {
 				printf("No ID\nchecking names\n");
@@ -147,24 +151,66 @@ int main() {
 
 int displayUsrInfo(char *name) {
 	printf("%s\n", name);
+    delay(1.5);
+    system("clear");
+    puts("1");
+    char *test = strcat(homeDir(), "/.lookupinator/peopleFiles/jake.txt");
+    puts("2");
+    puts(test);
+    test = strcat("cat", test);
+    puts("3");
+    system(test);
+    puts("4");
 }
 
 // char str[ENOUGH];
 // sprintf(str, "%d", 42);
 char *IDtoName(char *ID) {
+	printf("converting ID to name...\n");
 	int FORI = 0;
 	char TEMP_NUM_STR[10];
 	for (FORI = 0; FORI < NAME_CAPT; FORI++) {
 		sprintf(TEMP_NUM_STR, "%d", FORI);
 		if (strcmp(ID, TEMP_NUM_STR) == 0) {
+			printf("successfully converted ID to name\n");
         	return (unsigned char *)names[FORI];
     	}
 	}
 }
 
+void delay(int secs) {
+    unsigned int retTime = time(0) + secs;   // Get finishing time.
+    while (time(0) < retTime);               // Loop until it arrives.
+}
+
+char *homeDir() {
+    #include <unistd.h>
+    #include <pwd.h>
+    #include <sys/types.h>
+
+    char *homedir = getenv("HOME");
+
+//    if (homedir != NULL) {
+//        printf("Home dir in enviroment");
+//       printf("%s\n", homedir);
+//    }
+
+    uid_t uid = getuid();
+    struct passwd *pw = getpwuid(uid);
+
+    if (pw == NULL) {
+        printf("Failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    return pw->pw_dir;
+}
+
+
 // testEnv() is a test function to test C code, it will exit when its done exit
 // DO NOT PUT THIS IN PRODUCTION, DON'T FORGET THIS TIME
 void testEnv() {
+    printf("%s\n", homeDir());
 
 	exit(0);
 }
