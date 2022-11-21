@@ -1,0 +1,1 @@
+int displayUsrInfo(char *name);

@@ -3,19 +3,18 @@
 #include <string.h>
 #include <ctype.h>
 
-#include <time.h>
+#include "delay.h"
+#include "UsrInfoMgr.h"
 
 int displayUsrInfo(char *name);
-void testEnv();
 char *IDtoName(char *ID);
 void delay(int number_of_seconds);
-char *homeDir();
 
 /* in_stable codes
 	 0: DEV
 	 1: stable
 	 2: beta
-	>3: unknown 
+	>3: unknown
 */
 const int in_stable = 0;
 const char *VERSION = "0.8.3";
@@ -33,19 +32,17 @@ const char *names[] = {
         "_FILLER_",
 		"larry capt"
 };
+
 int NAME_CAPT = sizeof names / sizeof names[0];
 
 int main() {
 
-//	testEnv();
-
 	char whatNameLookup[30];
-
-
 
 	// should be reversed
 	int needCheckName = 0;
 
+	// main loop (Like an game loop)
 	while(1) {
 		printf("\nEnter a name/command >> ");
 		scanf("%s", whatNameLookup);
@@ -64,14 +61,14 @@ int main() {
 			printf("Laters\n");
 			return 0;
 		}
-		else if (strcmp(whatNameLookup, "list") == 0) {
+		else if ((strcmp(whatNameLookup, "list") == 0) || (strcmp(whatNameLookup, "ls") == 0)) {
 			int I_LIST = 0;
 			for(I_LIST = 0; I_LIST < NAME_CAPT; I_LIST++) {
 				printf("%d - %s\n",I_LIST, names[I_LIST]);
 			}
-			needCheckName = 1;			
+			needCheckName = 1;
 		}
-		else if (strcmp(whatNameLookup, "clear") == 0) {
+		else if ((strcmp(whatNameLookup, "clear") == 0) || (strcmp(whatNameLookup, "cls") == 0)) {
 			printf("clearing...\n");
 			system("clear");
 			needCheckName = 1;
@@ -93,7 +90,7 @@ int main() {
 
 			needCheckName = 1;
 		}
-		
+
 
 		// I know it's a mess down here :/
 		if (needCheckName == 0){
@@ -149,20 +146,6 @@ int main() {
     return 0;
 }
 
-int displayUsrInfo(char *name) {
-	printf("%s\n", name);
-    delay(1.5);
-    system("clear");
-    puts("1");
-    char *test = strcat(homeDir(), "/.lookupinator/peopleFiles/jake.txt");
-    puts("2");
-    puts(test);
-    test = strcat("cat", test);
-    puts("3");
-    system(test);
-    puts("4");
-}
-
 // char str[ENOUGH];
 // sprintf(str, "%d", 42);
 char *IDtoName(char *ID) {
@@ -173,46 +156,8 @@ char *IDtoName(char *ID) {
 		sprintf(TEMP_NUM_STR, "%d", FORI);
 		if (strcmp(ID, TEMP_NUM_STR) == 0) {
 			printf("successfully converted ID to name\n");
-        	return (unsigned char *)names[FORI];
+        	return (unsigned char *)names[FORI]; // just leave it... i dont know why its red :/
     	}
 	}
 }
-
-void delay(int secs) {
-    unsigned int retTime = time(0) + secs;   // Get finishing time.
-    while (time(0) < retTime);               // Loop until it arrives.
-}
-
-char *homeDir() {
-    #include <unistd.h>
-    #include <pwd.h>
-    #include <sys/types.h>
-
-    char *homedir = getenv("HOME");
-
-//    if (homedir != NULL) {
-//        printf("Home dir in enviroment");
-//       printf("%s\n", homedir);
-//    }
-
-    uid_t uid = getuid();
-    struct passwd *pw = getpwuid(uid);
-
-    if (pw == NULL) {
-        printf("Failed\n");
-        exit(EXIT_FAILURE);
-    }
-
-    return pw->pw_dir;
-}
-
-
-// testEnv() is a test function to test C code, it will exit when its done exit
-// DO NOT PUT THIS IN PRODUCTION, DON'T FORGET THIS TIME
-void testEnv() {
-    printf("%s\n", homeDir());
-
-	exit(0);
-}
-
 
