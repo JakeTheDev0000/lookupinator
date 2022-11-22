@@ -11,6 +11,9 @@ delay.o: src/delay.c src/delay.h
 UsrInfoMgr.o: src/UsrInfoMgr.c src/UsrInfoMgr.h
 	gcc -c src/UsrInfoMgr.c
 
+# listLPF.o: src/listLPF.c src/listLPF.h
+# 	gcc -c src/listLPF.c
+
 exec:
 	./bin/lookupinator-dev
 

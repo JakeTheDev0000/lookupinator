@@ -16,8 +16,8 @@ void delay(int number_of_seconds);
 	 2: beta
 	>3: unknown
 */
-const int in_stable = 0;
-const char *VERSION = "0.8.3";
+const int in_stable = 2;
+const char *VERSION = "0.8.6";
 const char *names[] = {
         "jake",
         "richie",
@@ -29,13 +29,28 @@ const char *names[] = {
         "joey",
         "jason",
         "william",
-        "_FILLER_",
-		"larry capt"
+		"Mother",
+		"Father"
 };
 
 int NAME_CAPT = sizeof names / sizeof names[0];
 
+int os_id = 0;
+
 int main() {
+	#ifdef _WIN32
+	    printf("Windows\n");
+		os_id = 0;
+	#elif __linux__
+	    printf("Linux\n");
+		os_id = 1;
+	#elif __unix__
+	    printf("Other unix OS\n");
+		os_id = 1;
+	#else
+	    printf("Unidentified OS\n");
+		os_id = 2;
+	#endif
 
 	char whatNameLookup[30];
 
@@ -87,6 +102,12 @@ int main() {
 			else {
 				printf("In unknown build");
 			}
+
+			needCheckName = 1;
+		}
+		// lists the LPF (Lookupinator People Files)
+		else if (strcmp(whatNameLookup, "lpf") == 0) {
+			listLPF();
 
 			needCheckName = 1;
 		}

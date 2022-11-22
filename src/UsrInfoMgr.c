@@ -40,6 +40,24 @@ int displayUsrInfo(char *name) {
     
 }
 
+void listLPF() {
+    // copy code from above
+    printf("Catched Home: %s\n", homeDir());
+
+    char peopleFiles_dataDir[80];
+    char commandToExec[80];
+    strcpy(peopleFiles_dataDir, homeDir());
+    strcat(peopleFiles_dataDir, "/lookupinator/peopleFiles/");
+
+    printf("Varible Home -- LPF : %s\n", peopleFiles_dataDir);
+
+    strcpy(commandToExec, "ls -l ");
+    strcat(commandToExec, peopleFiles_dataDir);
+
+    printf("Command: %s\n\n", commandToExec);
+    system(commandToExec);
+}
+
 
 /* 
     char str[80];
